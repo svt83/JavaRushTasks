@@ -1,7 +1,7 @@
 package com.javarush.games.minesweeper;
 
 public class GameObject {
-    public int x, y;
+    public int x, y, countMineNeighbors ;
     public boolean isMine;
 
     //Конструктор
