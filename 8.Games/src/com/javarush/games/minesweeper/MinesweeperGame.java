@@ -18,7 +18,7 @@ public class MinesweeperGame extends Game {
         createGame();
     }
 
-/*    @Override
+    @Override
     public void onMouseLeftClick(int x, int y) {
         setCellValue(x, y, String.valueOf(gameField[y][x].countMineNeighbors));
     }
@@ -28,7 +28,7 @@ public class MinesweeperGame extends Game {
         if (gameField[y][x].isMine)
             setCellValueEx(x, y, Color.ORANGE,"mine", Color.BLACK, 20); //show mine
         else setCellValueEx(x, y, Color.ORANGE, "");
-    }*/
+    }
 
     private void createGame() {
         for (int y = 0; y < SIDE; y++) {
@@ -36,7 +36,7 @@ public class MinesweeperGame extends Game {
                 boolean isMine = getRandomNumber(10) < 1;
                 if (isMine) {
                     countMinesOnField++;
-                    //setCellValueEx(x, y, Color.ORANGE,"mine", Color.BLACK, 20); //show mine
+                    setCellValueEx(x, y, Color.ORANGE,"mine", Color.BLACK, 20); //show mine
                 }
                 gameField[y][x] = new GameObject(x, y, isMine);
                 setCellColor(x, y, Color.ORANGE);
@@ -68,16 +68,16 @@ public class MinesweeperGame extends Game {
     private void countMineNeighbors() {
         for (int y = 0; y < SIDE; y++) {
             for (int x = 0; x < SIDE; x++) {
-                if (gameField[y][x].isMine) {
+                //if (gameField[y][x].isMine) {
                     for ( GameObject Field: getNeighbors(gameField[y][x]) ) {
-                        if (!Field.isMine) Field.countMineNeighbors++;
+                        if (Field.isMine) Field.countMineNeighbors++;
                     }
+
+                    System.out.println("Cell " + y + "-" + x + " " + gameField[y][x].isMine + " " + gameField[y][x].countMineNeighbors);
                     //setCellValueEx(x, y, Color.BLUE, String.valueOf(gameField[y][x].countMineNeighbors), Color.ORANGE, 50);
-                }
+                //}
             }
         }
     }
-
-
 
 }
