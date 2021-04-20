@@ -22,7 +22,7 @@ public class MinesweeperGame extends Game {
 
     @Override
     public void onMouseLeftClick(int x, int y) {
-        openTile(x, y);
+        if (!gameField[y][x].isOpen) openTile(x, y);
     }
 
     private void createGame() {
@@ -72,12 +72,19 @@ public class MinesweeperGame extends Game {
     }
 
     private void openTile(int x, int y) {
+        gameField[y][x].isOpen = true;
         if (gameField[y][x].isMine) {
             setCellValue(x, y, MINE);
-        } else {
+        }
+        else if (gameField[y][x].countMineNeighbors == 0) {
+            setCellValue(x, y, "");
+            setCellColor(x, y, Color.GRAY);
+            for (GameObject Field : getNeighbors(gameField[y][x])) {
+                if (!Field.isOpen) openTile(Field.x, Field.y);
+            }
+        }
+        else {
             setCellNumber(x, y, gameField[y][x].countMineNeighbors);
-            gameField[y][x].isOpen = true;
-            setCellColor(x, y, Color.GREEN);
         }
     }
 }

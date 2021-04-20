@@ -2,7 +2,7 @@ package com.javarush.games.minesweeper;
 
 public class GameObject {
     public int x, y, countMineNeighbors = 0;
-    public boolean isMine, isOpen, isFlag;
+    public boolean isMine, isOpen = false, isFlag = false;
 
     //Constructor of cell
     GameObject (int x, int y, boolean isMine) {
