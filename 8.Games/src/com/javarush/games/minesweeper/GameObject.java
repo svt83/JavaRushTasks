@@ -1,10 +1,11 @@
 package com.javarush.games.minesweeper;
 
 public class GameObject {
-    public int x, y, countMineNeighbors ;
+    public int x, y, countMineNeighbors = 0;
     public boolean isMine;
+    public boolean isOpen;
 
-    //Конструктор
+    //Constructor of cell
     GameObject (int x, int y, boolean isMine) {
         this.x = x;
         this.y = y;

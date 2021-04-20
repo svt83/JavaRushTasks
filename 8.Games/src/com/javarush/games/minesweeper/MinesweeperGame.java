@@ -10,6 +10,8 @@ public class MinesweeperGame extends Game {
     private static final int SIDE = 9;
     private GameObject[][] gameField = new GameObject[SIDE][SIDE];
     private int countMinesOnField;
+    private static final String MINE = "\uD83D\uDCA3";
+
 
     @Override
     public void initialize() {
@@ -17,18 +19,10 @@ public class MinesweeperGame extends Game {
         createGame();
     }
 
-    /*@Override
-    public void onMouseLeftClick(int x, int y) {
-        setCellValue(x, y, String.valueOf(gameField[y][x].countMineNeighbors));
-        System.out.println("Mouse Click Cell " + y + "-" + x + " " + gameField[y][x].isMine + " " + gameField[y][x].countMineNeighbors);
-    }
-
     @Override
-    public void onMouseRightClick(int x, int y) {
-        if (gameField[y][x].isMine)
-            setCellValueEx(x, y, Color.ORANGE,"mine", Color.BLACK, 20); //show mine
-        else setCellValueEx(x, y, Color.ORANGE, "");
-    }*/
+    public void onMouseLeftClick(int x, int y) {
+        openTile(x, y);
+    }
 
     private void createGame() {
         for (int y = 0; y < SIDE; y++) {
@@ -36,7 +30,6 @@ public class MinesweeperGame extends Game {
                 boolean isMine = getRandomNumber(10) < 1;
                 if (isMine) {
                     countMinesOnField++;
-                    setCellValueEx(x, y, Color.ORANGE,"mine", Color.BLACK, 20); //show mine
                 }
                 gameField[y][x] = new GameObject(x, y, isMine);
                 setCellColor(x, y, Color.ORANGE);
@@ -73,6 +66,16 @@ public class MinesweeperGame extends Game {
                     if (Field.isMine) gameField[y][x].countMineNeighbors++;
                 }
             }
+        }
+    }
+
+    private void openTile(int x, int y) {
+        if (gameField[y][x].isMine) {
+            setCellValue(x, y, MINE);
+        } else {
+            setCellNumber(x, y, gameField[y][x].countMineNeighbors);
+            gameField[y][x].isOpen = true;
+            setCellColor(x, y, Color.GREEN);
         }
     }
 }
